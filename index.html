@@ -1012,7 +1012,7 @@
                     </div>
                 </div>
 
-                <button class="btn" onclick="nextStep()">Begin Traceability Analysis →</button>
+                <button class="btn" id="beginTraceabilityBtn" onclick="nextStep()" style="display: none;">Begin Traceability Analysis →</button>
             </div>
 
             <!-- Step 2: Traceability -->
@@ -2143,6 +2143,7 @@
             document.getElementById('aiAssessmentPrompt').style.display = 'block';
             document.getElementById('aiAssessmentContent').style.display = 'none';
             document.getElementById('aiAssessmentCard').classList.remove('loading');
+            document.getElementById('beginTraceabilityBtn').style.display = 'none';
 
             showStep(1);
         }
@@ -2151,6 +2152,7 @@
             const card = document.getElementById('aiAssessmentCard');
             const prompt = document.getElementById('aiAssessmentPrompt');
             const content = document.getElementById('aiAssessmentContent');
+            const traceabilityBtn = document.getElementById('beginTraceabilityBtn');
 
             // Add loading state to card
             card.classList.add('loading');
@@ -2166,6 +2168,14 @@
 
                 // Add fade-in animation
                 content.style.animation = 'cardFadeIn 0.5s ease-out';
+
+                // Show the traceability button with fade-in
+                traceabilityBtn.style.display = 'inline-block';
+                traceabilityBtn.style.opacity = '0';
+                traceabilityBtn.style.transition = 'opacity 0.5s';
+                setTimeout(() => {
+                    traceabilityBtn.style.opacity = '1';
+                }, 100);
             }, 3500);
         }
 
