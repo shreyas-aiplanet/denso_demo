@@ -986,20 +986,30 @@
                     </div>
                 </div>
 
-                <div class="card">
+                <div class="card" id="aiAssessmentCard">
                     <h3>Initial AI Assessment <span class="ai-badge">AI POWERED</span></h3>
-                    <p style="color: #6c757d; line-height: 1.6;">
-                        Based on historical data, <span class="highlight">seal failures in component assemblies</span>
-                        are commonly associated with:
-                    </p>
-                    <ul style="margin-top: 15px; line-height: 2;">
-                        <li><strong>Adhesive quantity variations</strong> during bonding process (62% correlation)</li>
-                        <li><strong>Pressure test settings</strong> drift (47% correlation)</li>
-                        <li><strong>Raw material source changes</strong> in sealing components (38% correlation)</li>
-                    </ul>
-                    <p style="margin-top: 15px; color: #17a2b8; font-weight: 600;">
-                        ✓ System has initiated automated traceability scan for production window: Sep 8-22, 2024
-                    </p>
+                    <div id="aiAssessmentPrompt">
+                        <p style="color: #6c757d; line-height: 1.6; margin-bottom: 20px;">
+                            Click the button below to generate an AI-powered assessment of this complaint based on historical data and pattern recognition.
+                        </p>
+                        <button class="btn" onclick="generateAIAssessment()" style="margin-top: 0;">
+                            🤖 Generate AI Assessment
+                        </button>
+                    </div>
+                    <div id="aiAssessmentContent" style="display: none;">
+                        <p style="color: #6c757d; line-height: 1.6;">
+                            Based on historical data, <span class="highlight">seal failures in component assemblies</span>
+                            are commonly associated with:
+                        </p>
+                        <ul style="margin-top: 15px; line-height: 2;">
+                            <li><strong>Adhesive quantity variations</strong> during bonding process (62% correlation)</li>
+                            <li><strong>Pressure test settings</strong> drift (47% correlation)</li>
+                            <li><strong>Raw material source changes</strong> in sealing components (38% correlation)</li>
+                        </ul>
+                        <p style="margin-top: 15px; color: #17a2b8; font-weight: 600;">
+                            ✓ System has initiated automated traceability scan for production window: Sep 8-22, 2024
+                        </p>
+                    </div>
                 </div>
 
                 <button class="btn" onclick="nextStep()">Begin Traceability Analysis →</button>
@@ -2128,7 +2138,35 @@
             window.leakTrendChartInitialized = false;
             window.correlationChartInitialized = false;
             window.recoveryChartInitialized = false;
+
+            // Reset AI Assessment
+            document.getElementById('aiAssessmentPrompt').style.display = 'block';
+            document.getElementById('aiAssessmentContent').style.display = 'none';
+            document.getElementById('aiAssessmentCard').classList.remove('loading');
+
             showStep(1);
+        }
+
+        function generateAIAssessment() {
+            const card = document.getElementById('aiAssessmentCard');
+            const prompt = document.getElementById('aiAssessmentPrompt');
+            const content = document.getElementById('aiAssessmentContent');
+
+            // Add loading state to card
+            card.classList.add('loading');
+
+            // Simulate AI processing time (3.5 seconds)
+            setTimeout(() => {
+                // Hide prompt and show content
+                prompt.style.display = 'none';
+                content.style.display = 'block';
+
+                // Remove loading state
+                card.classList.remove('loading');
+
+                // Add fade-in animation
+                content.style.animation = 'cardFadeIn 0.5s ease-out';
+            }, 3500);
         }
 
         // Allow clicking on progress steps to navigate
